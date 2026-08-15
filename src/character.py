@@ -1,4 +1,5 @@
 from enum import Enum
+from consumable import Consumable
 
 class Action_orientation(Enum):
     LEFT = 1
@@ -17,8 +18,8 @@ class Character:
             pass
         def attack(action_orientation: Action_orientation):
             pass
-        def use_consumable():
-            pass
+        def use_consumable(consumable: Consumable):
+            consumable.consume
 
 class PlayerCharacter(Character):
     pass
