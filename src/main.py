@@ -18,24 +18,26 @@ def main(stdscr):
 
 def draw_main_menu(stdrc, max_y, max_x):
     #left part
-    LEFT_WIDTH = 50
+    LEFT_WIDTH = 30
     start_line_left = (max_y//2)-12 if (max_y//2)-12 >= 0 else 0
     window_left = curses.newwin(max_y, LEFT_WIDTH, 0 , 0)
-    draw_warrior(window_left, start_line_left, 0 )
+    draw_warrior(window_left, 0, 0 )
     window_left.refresh()
 
     #middle window
     MIDDLE_WIDTH = 50
     window_middle = curses.newwin(max_y,MIDDLE_WIDTH, 0, LEFT_WIDTH)
-    window_middle.addstr(1,1, "Main menu")
-    window_middle.addstr(2,1, f"start y: {start_line_left}")
+    window_middle.addstr(1,10, "Main menu")
+    window_middle.addstr(12,20, f"Start")
+    window_middle.addstr(14,20, f"Exit")
+    window_middle.box()
     window_middle.refresh()
 
     #right window
-    RIGHT_WIDTH = 50
+    RIGHT_WIDTH = 30
     start_line_rigth = (max_y//2)-12 if (max_y//2)-12 >= 0 else 0
     window_right = curses.newwin(max_y, RIGHT_WIDTH, 0 , LEFT_WIDTH + MIDDLE_WIDTH)
-    draw_warrior(window_right, start_line_rigth, 0 )
+    draw_warrior(window_right, 0, 0 )
     window_right.refresh()
 
 
