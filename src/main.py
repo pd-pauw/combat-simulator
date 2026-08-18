@@ -23,29 +23,51 @@ def main(stdscr):
    
 
 def draw_main_menu(stdrc, max_y, max_x):
+    
+    #left part
+    LEFT_WIDTH = 30
+    start_line_left = (max_y//2)-12 if (max_y//2)-12 >= 0 else 0
+    window_left = curses.newwin(max_y, LEFT_WIDTH, 0 , 0)
+    draw_warrior(window_left, 0, 0 )
+    window_left.refresh()
+
+    #middle window
+    MIDDLE_WIDTH = 50
+    start_button_y = 12
+    start_button_x =  20
+    start_button_text = "[  Start   ]"
+    window_middle = curses.newwin(max_y,MIDDLE_WIDTH, 0, LEFT_WIDTH)
+    window_middle.addstr(1,10, "Main menu")
+    window_middle.addstr(start_button_y,start_button_x, start_button_text, curses.A_REVERSE)
+    #window_middle.addstr(12,20, f"Start")
+    window_middle.addstr(14,20, f"Exit")
+    window_middle.box()
+    window_middle.refresh()
+
+    #right window
+    RIGHT_WIDTH = 30
+    start_line_rigth = (max_y//2)-12 if (max_y//2)-12 >= 0 else 0
+    window_right = curses.newwin(max_y, RIGHT_WIDTH, 0 , LEFT_WIDTH + MIDDLE_WIDTH)
+    draw_warrior(window_right, 0, 0 )
+    window_right.refresh()
     while True:
-        #left part
-        LEFT_WIDTH = 30
-        start_line_left = (max_y//2)-12 if (max_y//2)-12 >= 0 else 0
-        window_left = curses.newwin(max_y, LEFT_WIDTH, 0 , 0)
-        draw_warrior(window_left, 0, 0 )
-        window_left.refresh()
+        key = stdrc.getch()
 
-        #middle window
-        MIDDLE_WIDTH = 50
-        window_middle = curses.newwin(max_y,MIDDLE_WIDTH, 0, LEFT_WIDTH)
-        window_middle.addstr(1,10, "Main menu")
-        window_middle.addstr(12,20, f"Start")
-        window_middle.addstr(14,20, f"Exit")
-        window_middle.box()
-        window_middle.refresh()
+        if key == ord("q"):
+            break
 
-        #right window
-        RIGHT_WIDTH = 30
-        start_line_rigth = (max_y//2)-12 if (max_y//2)-12 >= 0 else 0
-        window_right = curses.newwin(max_y, RIGHT_WIDTH, 0 , LEFT_WIDTH + MIDDLE_WIDTH)
-        draw_warrior(window_right, 0, 0 )
-        window_right.refresh()
+        if key == curses.KEY_MOUSE:
+            try:
+                _, mx, my, _, button_state = curses.getmouse()
+                if button_state & curses.BUTTON1_CLICKED:
+                    if(start_button_x + LEFT_WIDTH <= mx < start_button_x + 
+                       len(start_button_text) + LEFT_WIDTH 
+                       and start_button_y == my ):
+                        window_middle.addstr(5,20,"button clicked")
+                        window_middle.refresh()
+                        stdrc.getch()
+            except curses.error:
+                pass
 
 
 
