@@ -11,6 +11,13 @@ class Button:
 
     def draw(self, window):
         window.addstr(
-            self.y
+            self.y,
+            self.x,
+            self.text
+        )
+
+    def contains(self, x, y):
+        return(self.x + self.parent_x <= x < self.x + self.parent_x + len(self.text)
+               and (self.y + self.parent_y) == y
         )
     
