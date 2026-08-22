@@ -20,4 +20,7 @@ class Button:
         return(self.x + self.parent_x <= x < self.x + self.parent_x + len(self.text)
                and (self.y + self.parent_y) == y
         )
+
+    def click(self):
+        self.callback()
     
